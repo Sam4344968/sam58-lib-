@@ -1,0 +1,36 @@
+# How to Publish Your Python Library to PyPI
+# =============================================
+
+# STEP 1 — Edit these files first:
+# - pyproject.toml  →  change "name", "authors", and "Homepage" URL
+# - LICENSE         →  change "Your Name"
+# - README.md       →  update description if you like
+
+# STEP 2 — Push to GitHub
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main
+
+# STEP 3 — Install build tools
+pip install build twine
+
+# STEP 4 — Build the package (creates dist/ folder)
+python -m build
+
+# STEP 5 — (Optional) Test on TestPyPI first
+twine upload --repository testpypi dist/*
+# Install test: pip install --index-url https://test.pypi.org/simple/ my-unique-library-name
+
+# STEP 6 — Upload to real PyPI
+twine upload dist/*
+# Enter your PyPI username and password (or API token as password)
+
+# STEP 7 — Verify it's live
+# Visit: https://pypi.org/project/my-unique-library-name/
+
+# STEP 8 — Install and test it
+pip install my-unique-library-name
+python -c "from my_library import hello; print(hello('World'))"
